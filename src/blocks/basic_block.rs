@@ -2,6 +2,9 @@
 //! inspection
 
 pub trait BasicBlock {
+    /// Return the unique label of the block
+    fn label(&self) -> String;
+
     /// Allows run-time inspection of the block
     ///
     /// # Example
@@ -18,4 +21,18 @@ pub trait BasicBlock {
     /// Transforms the block into its corresponding STIR representation
     // FIXME: Add example and better doc
     fn output(&self) -> String;
+
+    /// Interpret and execute a block
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use stir::blocks::{Boolean, BasicBlock};
+    ///
+    /// let b = Boolean::new(true);
+    ///
+    /// assert!(b.interpret());
+    /// ```
+    // FIXME: Logic: Return Result ?
+    fn interpret(&self) -> bool;
 }

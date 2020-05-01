@@ -59,6 +59,10 @@ impl Boolean {
 }
 
 impl BasicBlock for Boolean {
+    fn label(&self) -> String {
+        "__FIXME_bool_".to_string() //FIXME: Logic: Add unique Label to Boolean
+    }
+
     fn debug(&self) {
         dbg!(self);
     }
@@ -70,6 +74,10 @@ impl BasicBlock for Boolean {
         } else {
             String::from("false")
         }
+    }
+
+    fn interpret(&self) -> bool {
+        self.value
     }
 }
 
