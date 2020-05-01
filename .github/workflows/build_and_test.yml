@@ -1,0 +1,33 @@
+name: stir-test
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build stir
+      run: |
+          cargo build
+
+  tests:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run Unit Tests
+      run: |
+          cargo test
+    - uses: actions/checkout@v2
+    - name: Run Documentation examples
+      run: |
+          cargo test --doc
