@@ -5,10 +5,6 @@
 //! `stir` is organized in blocks. The smaller the block, the easier to
 //! multithread !
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}
+#[allow(dead_code)]
+
+pub mod blocks;
