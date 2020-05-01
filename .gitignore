@@ -1,0 +1,6 @@
+# Cargo files
+/target
+Cargo.lock
+
+# Ignore tags
+tags
