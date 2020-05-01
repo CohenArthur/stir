@@ -1,7 +1,10 @@
 //! This block represents a boolean block. It is either `false` or `true`.
 //! It is simply a wrapper around the `bool` type in Rust
 
+use super::BasicBlock;
+
 /// Wrapper struct around a `bool`
+#[derive(Debug)]
 pub struct Boolean {
     /// Actual value of the Boolean
     value: bool,
@@ -52,6 +55,21 @@ impl Boolean {
     /// ```
     pub fn set(&mut self, value: bool) {
         self.value = value;
+    }
+}
+
+impl BasicBlock for Boolean {
+    fn debug(&self) {
+        dbg!(self);
+    }
+
+    fn output(&self) -> String {
+        // FIXME: syntax: Use actual syntax
+        if self.value {
+            String::from("true")
+        } else {
+            String::from("false")
+        }
     }
 }
 
