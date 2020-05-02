@@ -29,15 +29,28 @@ impl <'block> Recipe<'block> {
     ///
     /// let b = Boolean::new(false);
     ///
-    /// let recipe = Recipe::new();
-    /// recipe.add(b);
+    /// let mut recipe = Recipe::new();
+    /// recipe.add(&b);
     ///
-    /// assert!(recipe.contains(b.label()));
+    // FIXME: Content: add assert!(recipe.contains(b.label()));
     /// ```
     pub fn add(&mut self, block: &'block dyn BasicBlock) -> &Recipe {
         self.blocks.insert(block.label(), block);
 
         self
+    }
+
+    /// Set the entry point of the recipe
+    // FIXME: Content: Add good example as it's an important function
+    pub fn add_entry(&mut self, entry: &'block dyn BasicBlock) -> bool {
+        match self.entry {
+            None => {
+                self.entry = Some(entry);
+                self.add(entry);
+                true
+            },
+            Some(_) => false
+        }
     }
 
     /// Interpret and execute the recipe
@@ -51,19 +64,9 @@ impl <'block> Recipe<'block> {
     }
 
     /// Return the entry point of the Recipe
+    // FIXME: Content: Add good example as it's an important function
     pub fn entry(&self) -> Option<&'block dyn BasicBlock> {
         self.entry
-    }
-
-    /// Return the entry point of the Recipe
-    pub fn add_entry(&mut self, entry: &'block dyn BasicBlock) -> bool {
-        match self.entry {
-            None => {
-                self.entry = Some(entry);
-                true
-            },
-            Some(_) => false
-        }
     }
 
     /// Return the number of blocks in the Recipe
@@ -99,6 +102,21 @@ mod tests {
 
         match r.entry() {
             Some(_) => assert!(false),
+            _ => ()
+        };
+
+        assert_eq!(r.len(), 1);
+    }
+
+    #[test]
+    fn add_entry() {
+        let mut r = Recipe::new();
+        let b = Boolean::new(false);
+
+        r.add_entry(&b);
+
+        match r.entry() {
+            None => assert!(false),
             _ => ()
         };
 
