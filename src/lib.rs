@@ -8,4 +8,5 @@
 #[allow(dead_code)]
 
 pub mod blocks;
+pub mod label;
 pub mod recipe;
