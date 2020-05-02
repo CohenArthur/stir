@@ -32,7 +32,7 @@ impl BasicBlock for Loop<'_> {
     }
 
     fn interpret(&self) -> bool {
-        true // FIXME: Add logic
+        true // FIXME: Logic: Add logic
     }
 
     fn debug(&self) {

@@ -1,3 +1,5 @@
+//! `Labels` are unique names associated with each block.
+
 /// Last ID set by the Label framework
 static mut LAST_ID: u128 = 0;
 
@@ -26,7 +28,9 @@ impl Label {
         }
     }
 
-    /// Create a new unique identifier from a given prefix
+    /// Create a new unique identifier from a given prefix using the following
+    /// layout:
+    ///     __<prefix>_<last_id + 1>
     fn unique_identifier(prefix: &str) -> String {
         let mut unique = String::from("__");
         unique.push_str(prefix);
