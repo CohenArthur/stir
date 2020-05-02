@@ -52,31 +52,25 @@ impl Label {
 mod tests {
     use super::*;
 
-    fn reset_last_id() {
-        unsafe {
-            LAST_ID = 0;
-        }
-    }
-
     #[test]
     fn id_layout() {
         let l = Label::new("a");
 
-        assert_eq!(l.name(), "__a_1");
+        assert!(l.name().contains("__a_"));
+    }
 
-        reset_last_id();
+    #[test]
+    fn id_layout_complex_prefix() {
+        let l = Label::new("this_is_complex");
+
+        assert!(l.name().contains("__this_is_complex_"));
     }
 
     #[test]
     fn last_id_increases() {
         let l0 = Label::new("a");
         let l1 = Label::new("a");
-        let l2 = Label::new("b");
 
-        assert_eq!(l0.name(), "__a_1");
-        assert_eq!(l1.name(), "__a_2");
-        assert_eq!(l2.name(), "__b_3");
-
-        reset_last_id();
+        assert_ne!(l0.name(), l1.name());
     }
 }

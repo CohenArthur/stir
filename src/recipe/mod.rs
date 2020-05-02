@@ -8,7 +8,7 @@ use crate::blocks::BasicBlock;
 /// BasicBlock collection
 pub struct Recipe<'block> {
     entry: Option<&'block dyn BasicBlock>,
-    blocks: HashMap<String, &'block dyn BasicBlock>
+    blocks: HashMap<&'block String, &'block dyn BasicBlock>
 }
 
 impl <'block> Recipe<'block> {

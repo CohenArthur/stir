@@ -92,7 +92,14 @@ mod tests {
     use super::*;
 
     #[test]
-    fn boolean_test() {
+    fn init() {
+        let b = Boolean::new(false);
+
+        assert!(!b.value());
+    }
+
+    #[test]
+    fn test_mut() {
         let mut b = Boolean::new(false);
 
         assert_eq!(b.value(), false);
