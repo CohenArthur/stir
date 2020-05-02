@@ -3,7 +3,7 @@
 
 pub trait BasicBlock {
     /// Return the unique label of the block
-    fn label(&self) -> String;
+    fn label(&self) -> &String;
 
     /// Allows run-time inspection of the block
     ///

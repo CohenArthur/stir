@@ -3,11 +3,16 @@
 
 use super::BasicBlock;
 
+use crate::label::Label;
+
 /// Wrapper struct around a `bool`
 #[derive(Debug)]
 pub struct Boolean {
     /// Actual value of the Boolean
     value: bool,
+
+    /// Label of the boolean
+    label: Label,
 }
 
 impl Boolean {
@@ -22,7 +27,8 @@ impl Boolean {
     /// ```
     pub fn new(value: bool) -> Boolean {
         Boolean {
-            value
+            value,
+            label: Label::new("bool"),
         }
     }
 
@@ -59,8 +65,8 @@ impl Boolean {
 }
 
 impl BasicBlock for Boolean {
-    fn label(&self) -> String {
-        "__FIXME_bool_".to_string() //FIXME: Logic: Add unique Label to Boolean
+    fn label(&self) -> &String {
+        self.label.name()
     }
 
     fn debug(&self) {

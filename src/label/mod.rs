@@ -3,6 +3,7 @@ static mut LAST_ID: u128 = 0;
 
 /// Labels are a unique identifier attributed to a block. It represents this
 /// block and is unique.
+#[derive(Debug)]
 pub struct Label {
     name: String,
 }
