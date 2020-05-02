@@ -3,11 +3,16 @@
 
 use super::BasicBlock;
 
+use crate::label::Label;
+
 /// Wrapper struct around a `bool`
 #[derive(Debug)]
 pub struct Boolean {
     /// Actual value of the Boolean
     value: bool,
+
+    /// Label of the boolean
+    label: Label,
 }
 
 impl Boolean {
@@ -22,7 +27,8 @@ impl Boolean {
     /// ```
     pub fn new(value: bool) -> Boolean {
         Boolean {
-            value
+            value,
+            label: Label::new("bool"),
         }
     }
 
@@ -59,6 +65,10 @@ impl Boolean {
 }
 
 impl BasicBlock for Boolean {
+    fn label(&self) -> &String {
+        self.label.name()
+    }
+
     fn debug(&self) {
         dbg!(self);
     }
@@ -71,6 +81,10 @@ impl BasicBlock for Boolean {
             String::from("false")
         }
     }
+
+    fn interpret(&self) -> bool {
+        self.value
+    }
 }
 
 #[cfg(test)]
@@ -78,7 +92,14 @@ mod tests {
     use super::*;
 
     #[test]
-    fn boolean_test() {
+    fn init() {
+        let b = Boolean::new(false);
+
+        assert!(!b.value());
+    }
+
+    #[test]
+    fn test_mut() {
         let mut b = Boolean::new(false);
 
         assert_eq!(b.value(), false);
