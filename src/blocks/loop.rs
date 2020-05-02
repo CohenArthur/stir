@@ -1,0 +1,45 @@
+use super::BasicBlock;
+
+use crate::label::Label;
+
+pub struct Loop<'block> {
+    label: Label,
+    lo_bound: Option<&'block dyn BasicBlock>,
+    hi_bound: Option<&'block dyn BasicBlock>,
+    body: Option<&'block dyn BasicBlock>,
+}
+
+impl<'block> Loop<'block> {
+    /// Create a new Loop block.
+    /// Pass None as lo_bound or hi_bound if the loop is an infinite one
+    pub fn new(
+        lo_bound: Option<&'block dyn BasicBlock>,
+        hi_bound: Option<&'block dyn BasicBlock>,
+        body: Option<&'block dyn BasicBlock>,
+    ) -> Loop<'block> {
+        Loop {
+            label: Label::new("loop"),
+            lo_bound,
+            hi_bound,
+            body,
+        }
+    }
+}
+
+impl BasicBlock for Loop<'_> {
+    fn label(&self) -> &String {
+        self.label.name()
+    }
+
+    fn interpret(&self) -> bool {
+        true // FIXME: Add logic
+    }
+
+    fn debug(&self) {
+        println!("loop {}", self.label()); // FIXME: Logic: Pretty print
+    }
+
+    fn output(&self) -> String {
+        String::from("loop") // FIXME: Logic: Pretty print
+    }
+}
