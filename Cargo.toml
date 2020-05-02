@@ -3,6 +3,11 @@ name = "stir"
 version = "0.1.0"
 authors = ["cohenarthur <arthur.cohen@epita.fr>"]
 edition = "2018"
+description = "Small Threaded Intermediate Representation"
+license-file = "LICENSE.md"
+keywords = ["ir", "llvm"]
+readme = "README.md"
+repository = "https://github.com/cohenarthur/stir"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
