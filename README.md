@@ -17,9 +17,9 @@ following functionalities:
 To put blocks together, use a Recipe. To run the Recipe, just `fry` it ! A
 recipe needs an entry block (or main block) to start interpreting from.
 
-Use the (`fry`)[https://github.com/cohenarthur/fry] binary to intepret STIR code.
+Use the [`fry`](https://github.com/cohenarthur/fry) binary to intepret STIR code.
 `fry` can interpret code pretty-printed from the `stir` crate, or code directly
-written in .st file ! For a rundown of the syntax, check (SYNTAX.md)[SYNTAX.md]
+written in .st file ! For a rundown of the syntax, check [SYNTAX.md](SYNTAX.md)
 
 To use STIR as a representation for your language, simply add a translation unit
 from your AST to STIR building blocks.
