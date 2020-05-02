@@ -18,10 +18,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Run Unit Tests
+    - name: Run Unit Tests and Documentation examples
       run: |
           cargo test
-    - uses: actions/checkout@v2
-    - name: Run Documentation examples
-      run: |
-          cargo test --doc
