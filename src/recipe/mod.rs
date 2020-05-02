@@ -8,15 +8,15 @@ use crate::blocks::BasicBlock;
 /// BasicBlock collection
 pub struct Recipe<'block> {
     entry: Option<&'block dyn BasicBlock>,
-    blocks: HashMap<&'block String, &'block dyn BasicBlock>
+    blocks: HashMap<&'block String, &'block dyn BasicBlock>,
 }
 
-impl <'block> Recipe<'block> {
+impl<'block> Recipe<'block> {
     /// Init a new Recipe
     pub fn new() -> Recipe<'block> {
         Recipe {
             entry: None,
-            blocks: HashMap::new()
+            blocks: HashMap::new(),
         }
     }
 
@@ -48,18 +48,16 @@ impl <'block> Recipe<'block> {
                 self.entry = Some(entry);
                 self.add(entry);
                 true
-            },
-            Some(_) => false
+            }
+            Some(_) => false,
         }
     }
 
     /// Interpret and execute the recipe
     pub fn fry(&self) -> Result<bool, ()> {
         match self.entry {
-            Some(entry_block) => Ok({
-                BasicBlock::interpret(entry_block)
-            }),
-            None => Err(())
+            Some(entry_block) => Ok({ BasicBlock::interpret(entry_block) }),
+            None => Err(()),
         }
     }
 
@@ -87,7 +85,7 @@ mod tests {
 
         match r.entry() {
             Some(_) => assert!(false),
-            _ => ()
+            _ => (),
         };
 
         assert_eq!(r.len(), 0);
@@ -102,7 +100,7 @@ mod tests {
 
         match r.entry() {
             Some(_) => assert!(false),
-            _ => ()
+            _ => (),
         };
 
         assert_eq!(r.len(), 1);
@@ -117,7 +115,7 @@ mod tests {
 
         match r.entry() {
             None => assert!(false),
-            _ => ()
+            _ => (),
         };
 
         assert_eq!(r.len(), 1);

@@ -36,3 +36,12 @@ pub trait BasicBlock {
     // FIXME: Logic: Return Result ?
     fn interpret(&self) -> bool;
 }
+
+impl std::fmt::Debug for dyn BasicBlock {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "ICE" // FIXME: Add actual message
+        )
+    }
+}
