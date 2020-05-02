@@ -20,8 +20,8 @@ pub struct IfElse<'block> {
 }
 
 impl<'block> IfElse<'block> {
-    /// Create a new IfElse block. If there is no body to the `if` or to the
-    /// `else`, pass `None` as argument
+    /// Create a new IfElse block. If there is no body to the `else`,
+    /// pass `None` as argument
     pub fn new(
         cond_block: &'block dyn BasicBlock,
         t_block: &'block dyn BasicBlock,
@@ -80,8 +80,8 @@ mod tests {
         let ie = IfElse::new(
             Boolean::new(true),
             Boolean::new(true),
-            Some(Boolean::new(false))
-            );
+            Some(Boolean::new(false)),
+        );
 
         assert!(ie.interpret());
     }
@@ -91,19 +91,15 @@ mod tests {
         let ie = IfElse::new(
             Boolean::new(false),
             Boolean::new(false),
-            Some(Boolean::new(true))
-            );
+            Some(Boolean::new(true)),
+        );
 
         assert!(ie.interpret());
     }
 
     #[test]
     fn no_else() {
-        let ie = IfElse::new(
-            Boolean::new(false),
-            Boolean::new(false),
-            None
-            );
+        let ie = IfElse::new(Boolean::new(false), Boolean::new(false), None);
 
         assert!(!ie.interpret());
     }
