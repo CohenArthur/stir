@@ -1,3 +1,5 @@
+//! The Loop block is used to represent ranged and infinite loops.
+
 use super::BasicBlock;
 
 use crate::label::Label;
