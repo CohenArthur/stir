@@ -19,7 +19,7 @@ recipe needs an entry block (or main block) to start interpreting from.
 
 Use the [`fry`](https://github.com/cohenarthur/fry) binary to intepret STIR code.
 `fry` can interpret code pretty-printed from the `stir` crate, or code directly
-written in .st file ! For a rundown of the syntax, check [SYNTAX.md](SYNTAX.md)
+written in .stir file ! For a rundown of the syntax, check [SYNTAX.md](SYNTAX.md)
 
 To use STIR as a representation for your language, simply add a translation unit
 from your AST to STIR building blocks.
