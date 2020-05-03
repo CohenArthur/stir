@@ -2,7 +2,10 @@
 
 use super::BasicBlock;
 
+use crate::label::Label;
+
 pub struct Critical<'block> {
+    label: Label,
     block: &'block dyn BasicBlock,
 }
 
@@ -12,14 +15,15 @@ impl <'block> Critical<'block> {
     /// then wrap it in a Critical block.
     pub fn new(block: &'block dyn BasicBlock) -> Critical<'block> {
         Critical {
-            block
+            label: Label::new("critical"),
+            block,
         }
     }
 }
 
 impl BasicBlock for Critical<'_> {
     fn label(&self) -> &String {
-        self.block.label()
+        self.label.name()
     }
 
     fn interpret(&self) -> bool {
