@@ -37,11 +37,18 @@ impl BasicBlock for Loop<'_> {
         true // FIXME: Logic: Add logic
     }
 
-    fn debug(&self) {
-        println!("loop {}", self.label()); // FIXME: Logic: Pretty print
-    }
-
     fn output(&self) -> String {
         String::from("loop") // FIXME: Logic: Pretty print
+    }
+}
+
+impl std::fmt::Debug for Loop<'_> {
+    fn fmt(&self, _: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        dbg!(&self.label);
+        dbg!(self.lo_bound);
+        dbg!(self.hi_bound);
+        dbg!(self.body);
+
+        Ok(())
     }
 }

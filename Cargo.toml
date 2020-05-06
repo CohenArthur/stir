@@ -9,6 +9,12 @@ keywords = ["ir", "llvm"]
 readme = "README.md"
 repository = "https://github.com/cohenarthur/stir"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+name = "stir"
+path = "src/lib.rs"
+
+[[bin]]
+name = "stir-bin"
+path = "src/main.rs"
 
 [dependencies]

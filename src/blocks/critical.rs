@@ -43,3 +43,10 @@ impl BasicBlock for Critical<'_> {
         true
     }
 }
+
+impl std::fmt::Debug for Critical<'_> {
+    fn fmt(&self, _: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        dbg!(self.block);
+        Ok(())
+    }
+}
