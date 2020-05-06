@@ -35,6 +35,25 @@ pub trait BasicBlock {
     /// ```
     // FIXME: Logic: Return Result ?
     fn interpret(&self) -> bool;
+
+    /// If the block is critical or if it can safely be parallelized
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use stir::blocks::{Boolean, Critical, BasicBlock};
+    ///
+    /// let non_crit_b = Boolean::new(false);
+    ///
+    /// let critical_boolean_block = Boolean::new(true);
+    /// let critical_b = Critical::new(&critical_boolean_block);
+    ///
+    /// assert!(critical_b.is_critical());
+    /// assert!(!non_crit_b.is_critical());
+    /// ```
+    fn is_critical(&self) -> bool {
+        false
+    }
 }
 
 impl std::fmt::Debug for dyn BasicBlock {

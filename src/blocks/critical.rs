@@ -10,7 +10,7 @@ pub struct Critical<'block> {
     block: &'block dyn BasicBlock,
 }
 
-impl <'block> Critical<'block> {
+impl<'block> Critical<'block> {
     /// Create a new Critical block and wrap it around another block.
     /// When noticing a critical block in the syntax, create said block and
     /// then wrap it in a Critical block.
@@ -37,5 +37,9 @@ impl BasicBlock for Critical<'_> {
 
     fn output(&self) -> String {
         self.block.output()
+    }
+
+    fn is_critical(&self) -> bool {
+        true
     }
 }

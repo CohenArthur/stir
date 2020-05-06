@@ -10,7 +10,7 @@ mod if_else;
 mod r#loop;
 
 pub use basic_block::BasicBlock;
-pub use critical::Critical;
 pub use boolean::Boolean;
+pub use critical::Critical;
 pub use if_else::IfElse;
 pub use r#loop::Loop;
