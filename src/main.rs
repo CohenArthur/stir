@@ -1,4 +1,4 @@
-use stir::blocks::{Boolean, IfElse, BasicBlock};
+use stir::blocks::*;
 
 fn main() {
     let c = Boolean::new(true);
@@ -10,7 +10,17 @@ fn main() {
         Some(&f),
         );
 
-    dbg!(&ie);
+    let l = Loop::new(
+        None,
+        None,
+        None);
 
-    println!("\n{}", ie.output());
+    let b = Boolean::new(true);
+
+    let mega_l = Loop::new(None, Some(&b), Some(&ie));
+
+    dbg!(l);
+    dbg!(mega_l);
+    dbg!(b);
+    dbg!(ie);
 }

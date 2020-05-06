@@ -1,7 +1,7 @@
 //! Trait that all `stir::blocks` implement. Allows for code generation and
 //! inspection
 
-pub trait BasicBlock {
+pub trait BasicBlock: std::fmt::Debug {
     /// Return the unique label of the block
     fn label(&self) -> &String;
 
@@ -16,7 +16,9 @@ pub trait BasicBlock {
     ///
     /// b.debug(); // Also usable in the `fry` interpreter
     /// ```
-    fn debug(&self);
+    fn debug(&self) {
+        dbg!(self);
+    }
 
     /// Transforms the block into its corresponding STIR representation
     // FIXME: Add example and better doc
@@ -53,14 +55,5 @@ pub trait BasicBlock {
     /// ```
     fn is_critical(&self) -> bool {
         false
-    }
-}
-
-impl std::fmt::Debug for dyn BasicBlock {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "ICE" // FIXME: Add actual message
-        )
     }
 }

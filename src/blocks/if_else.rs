@@ -41,10 +41,6 @@ impl BasicBlock for IfElse<'_> {
         return self.label.name();
     }
 
-    fn debug(&self) {
-        dbg!(self);
-    }
-
     fn output(&self) -> String {
         let mut s = String::from("IF ");
         s.push_str(&self.cond_block.output());
@@ -79,29 +75,13 @@ impl BasicBlock for IfElse<'_> {
 }
 
 impl std::fmt::Debug for IfElse<'_> {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "// -- begin IfElse\n").unwrap();
-
+    fn fmt(&self, _: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         dbg!(&self.label);
+        dbg!(self.cond_block);
+        dbg!(self.t_block);
+        dbg!(self.f_block);
 
-        write!(f, "// -- condition\n").unwrap();
-
-        self.cond_block.debug();
-
-        write!(f, "// -- then\n").unwrap();
-
-        self.t_block.debug();
-
-        match self.f_block {
-            Some(f_b) => {
-                write!(f, "// -- else\n").unwrap();
-
-                f_b.debug();
-            },
-            None => {}
-        }
-
-        write!(f, "// -- end IfElse\n")
+        Ok(())
     }
 }
 
