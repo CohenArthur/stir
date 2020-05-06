@@ -47,7 +47,7 @@ impl BasicBlock for IfElse<'_> {
 
     fn output(&self) -> String {
         let mut s = String::from("IF ");
-        s.push_str(&self.t_block.output());
+        s.push_str(&self.cond_block.output());
         s.push_str(" {\n");
         s.push_str(&self.t_block.output());
         s.push_str("\n}");
@@ -136,7 +136,7 @@ mod tests {
     }
 
     #[test]
-    fn output() {
+    fn output_complete() {
         let ie_str = "IF true {\ntrue\n} ELSE {\nfalse\n}\n";
 
         let c = Boolean::new(true);
@@ -146,6 +146,21 @@ mod tests {
             &c,
             &t,
             Some(&f),
+        );
+
+        assert_eq!(ie_str, ie.output());
+    }
+
+    #[test]
+    fn output_no_else() {
+        let ie_str = "IF true {\nfalse\n}\n";
+
+        let c = Boolean::new(true);
+        let t = Boolean::new(false);
+        let ie = IfElse::new(
+            &c,
+            &t,
+            None
         );
 
         assert_eq!(ie_str, ie.output());
