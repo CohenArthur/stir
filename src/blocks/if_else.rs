@@ -80,11 +80,28 @@ impl BasicBlock for IfElse<'_> {
 
 impl std::fmt::Debug for IfElse<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "// -- begin IfElse").unwrap();
+        write!(f, "// -- begin IfElse\n").unwrap();
 
         dbg!(&self.label);
 
-        write!(f, "// -- end IfElse")
+        write!(f, "// -- condition\n").unwrap();
+
+        self.cond_block.debug();
+
+        write!(f, "// -- then\n").unwrap();
+
+        self.t_block.debug();
+
+        match self.f_block {
+            Some(f_b) => {
+                write!(f, "// -- else\n").unwrap();
+
+                f_b.debug();
+            },
+            None => {}
+        }
+
+        write!(f, "// -- end IfElse\n")
     }
 }
 
