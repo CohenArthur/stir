@@ -46,7 +46,24 @@ impl BasicBlock for IfElse<'_> {
     }
 
     fn output(&self) -> String {
-        String::from("if .. else ..") // FIXME: Logic: Add actual printing
+        let mut s = String::from("IF ");
+        s.push_str(&self.t_block.output());
+        s.push_str(" {\n");
+        s.push_str(&self.t_block.output());
+        s.push_str("\n}");
+
+        match self.f_block {
+            Some(else_block) => {
+                s.push_str(" ELSE {\n");
+                s.push_str(&else_block.output());
+                s.push_str("\n}\n");
+                s
+            }
+            None => {
+                s.push('\n');
+                s
+            }
+        }
     }
 
     fn interpret(&self) -> bool {
@@ -71,16 +88,21 @@ impl std::fmt::Debug for IfElse<'_> {
     }
 }
 
-#[cfg(tests)]
+#[cfg(test)]
 mod tests {
     use super::*;
 
+    use crate::blocks::Boolean;
+
     #[test]
     fn cond_true() {
+        let c = Boolean::new(true);
+        let t = Boolean::new(true);
+        let f = Boolean::new(false);
         let ie = IfElse::new(
-            Boolean::new(true),
-            Boolean::new(true),
-            Some(Boolean::new(false)),
+            &c,
+            &t,
+            Some(&f),
         );
 
         assert!(ie.interpret());
@@ -88,10 +110,13 @@ mod tests {
 
     #[test]
     fn cond_false() {
+        let c = Boolean::new(true);
+        let t = Boolean::new(true);
+        let f = Boolean::new(false);
         let ie = IfElse::new(
-            Boolean::new(false),
-            Boolean::new(false),
-            Some(Boolean::new(true)),
+            &c,
+            &t,
+            Some(&f),
         );
 
         assert!(ie.interpret());
@@ -99,8 +124,30 @@ mod tests {
 
     #[test]
     fn no_else() {
-        let ie = IfElse::new(Boolean::new(false), Boolean::new(false), None);
+        let c = Boolean::new(true);
+        let t = Boolean::new(false);
+        let ie = IfElse::new(
+            &c,
+            &t,
+            None,
+        );
 
         assert!(!ie.interpret());
+    }
+
+    #[test]
+    fn output() {
+        let ie_str = "IF true {\ntrue\n} ELSE {\nfalse\n}\n";
+
+        let c = Boolean::new(true);
+        let t = Boolean::new(true);
+        let f = Boolean::new(false);
+        let ie = IfElse::new(
+            &c,
+            &t,
+            Some(&f),
+        );
+
+        assert_eq!(ie_str, ie.output());
     }
 }
