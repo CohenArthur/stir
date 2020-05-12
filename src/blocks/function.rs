@@ -51,6 +51,7 @@ impl BasicBlock for Function<'_> {
         let mut res = true;
 
         for statement in self.stmts.iter() {
+            // FIXME: Add actual logic ? Or is this what we want ?
             res = if statement.interpret() { res } else { false };
         }
 
