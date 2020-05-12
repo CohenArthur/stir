@@ -96,11 +96,7 @@ mod tests {
         let c = Boolean::new(true);
         let t = Boolean::new(true);
         let f = Boolean::new(false);
-        let ie = IfElse::new(
-            &c,
-            &t,
-            Some(&f),
-        );
+        let ie = IfElse::new(&c, &t, Some(&f));
 
         assert!(ie.interpret());
     }
@@ -110,11 +106,7 @@ mod tests {
         let c = Boolean::new(true);
         let t = Boolean::new(true);
         let f = Boolean::new(false);
-        let ie = IfElse::new(
-            &c,
-            &t,
-            Some(&f),
-        );
+        let ie = IfElse::new(&c, &t, Some(&f));
 
         assert!(ie.interpret());
     }
@@ -123,11 +115,7 @@ mod tests {
     fn no_else() {
         let c = Boolean::new(true);
         let t = Boolean::new(false);
-        let ie = IfElse::new(
-            &c,
-            &t,
-            None,
-        );
+        let ie = IfElse::new(&c, &t, None);
 
         assert!(!ie.interpret());
     }
@@ -139,11 +127,7 @@ mod tests {
         let c = Boolean::new(true);
         let t = Boolean::new(true);
         let f = Boolean::new(false);
-        let ie = IfElse::new(
-            &c,
-            &t,
-            Some(&f),
-        );
+        let ie = IfElse::new(&c, &t, Some(&f));
 
         assert_eq!(ie_str, ie.output());
     }
@@ -154,11 +138,7 @@ mod tests {
 
         let c = Boolean::new(true);
         let t = Boolean::new(false);
-        let ie = IfElse::new(
-            &c,
-            &t,
-            None
-        );
+        let ie = IfElse::new(&c, &t, None);
 
         assert_eq!(ie_str, ie.output());
     }
