@@ -12,6 +12,15 @@ fn main() {
 
     let mega_l = Loop::new(None, Some(&b), Some(&ie));
 
+    let mut vec: Vec<&dyn BasicBlock> = Vec::new();
+    vec.push(&mega_l);
+    vec.push(&l);
+    vec.push(&b);
+    vec.push(&ie);
+
+    let func = Function::new(&vec);
+
+    dbg!(func);
     dbg!(l);
     dbg!(mega_l);
     dbg!(b);
