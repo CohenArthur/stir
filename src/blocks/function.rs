@@ -9,6 +9,7 @@ use std::vec::Vec;
 
 #[derive(Debug)]
 pub struct Function<'block> {
+    // FIXME: Add return value as well as arguments
     label: Label,
     stmts: &'block Vec<&'block dyn BasicBlock>,
 }
