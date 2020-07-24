@@ -4,16 +4,9 @@ fn main() {
     let c = Boolean::new(true);
     let t = Boolean::new(true);
     let f = Boolean::new(false);
-    let ie = IfElse::new(
-        &c,
-        &t,
-        Some(&f),
-        );
+    let ie = IfElse::new(&c, &t, Some(&f));
 
-    let l = Loop::new(
-        None,
-        None,
-        None);
+    let l = Loop::new(None, None, None);
 
     let b = Boolean::new(true);
 
