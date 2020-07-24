@@ -1,18 +1,19 @@
 //! This block represents a boolean block. It is either `false` or `true`.
 //! It is simply a wrapper around the `bool` type in Rust
 
-use super::BasicBlock;
+use super::{BasicBlock, Primitive};
 
 use crate::label::Label;
 
 /// Wrapper struct around a `bool`
 #[derive(Debug)]
 pub struct Boolean {
+    /// Label of the boolean
+    label: Label,
+
     /// Actual value of the Boolean
     value: bool,
 
-    /// Label of the boolean
-    label: Label,
 }
 
 impl Boolean {
@@ -30,37 +31,6 @@ impl Boolean {
             value,
             label: Label::new("bool"),
         }
-    }
-
-    /// Return the value contained in a Boolean
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use stir::blocks::Boolean;
-    ///
-    /// let b = Boolean::new(true);
-    ///
-    /// assert!(b.value());
-    /// ```
-    pub fn value(&self) -> bool {
-        self.value
-    }
-
-    /// Set a Boolean's value
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use stir::blocks::Boolean;
-    ///
-    /// let mut b = Boolean::new(false);
-    /// b.set(true);
-    ///
-    /// assert!(b.value());
-    /// ```
-    pub fn set(&mut self, value: bool) {
-        self.value = value;
     }
 }
 
@@ -87,6 +57,18 @@ impl BasicBlock for Boolean {
     }
 }
 
+impl Primitive for Boolean {
+    type ValueType = bool;
+
+    fn get(&self) -> Self::ValueType {
+        self.value
+    }
+
+    fn set(&mut self, value: Self::ValueType) {
+        self.value = value;
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -107,5 +89,13 @@ mod tests {
         b.set(true);
 
         assert!(b.value());
+    }
+
+    fn test_value() {
+        let b_t = Boolean::new(true);
+        let b_f = Boolean::new(false);
+
+        assert!(b_t.value());
+        assert!(!b_f.value());
     }
 }
