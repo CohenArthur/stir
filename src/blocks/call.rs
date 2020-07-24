@@ -59,6 +59,6 @@ impl BasicBlock for Call<'_> {
     }
 
     fn output(&self) -> String {
-        "Call".to_string() // FIXME: Add logic
+        format!("CALL {}", self.function.label())
     }
 }
