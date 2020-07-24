@@ -20,16 +20,16 @@ impl<'block> Call<'block> {
     /// # Example
     ///
     /// ```
-    /// use stir::blocks::{Boolean, Call, Function};
+    /// use stir::blocks::{Boolean, Call, Function, BasicBlock};
     ///
     /// let arg0 = Boolean::new(true);
-    /// let args = vec!(&arg0);
+    /// let args: Vec<&dyn BasicBlock> = vec!(&arg0);
     ///
     /// // A very useful function
     /// let body0 = Boolean::new(false);
     /// let body1 = Boolean::new(false);
     /// let body2 = Boolean::new(true);
-    /// let vec = vec!(&body0, &body1, &body2);
+    /// let vec: Vec<&dyn BasicBlock> = vec!(&body0, &body1, &body2);
     /// let function = Function::new(&vec);
     ///
     /// // Create the calling block with the boolean argument

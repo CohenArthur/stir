@@ -56,7 +56,7 @@ impl<'block> Recipe<'block> {
     /// Interpret and execute the recipe
     pub fn fry(&self) -> Result<bool, ()> {
         match self.entry {
-            Some(entry_block) => Ok({ BasicBlock::interpret(entry_block) }),
+            Some(entry_block) => Ok(BasicBlock::interpret(entry_block)),
             None => Err(()),
         }
     }
