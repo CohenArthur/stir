@@ -43,7 +43,6 @@ impl BasicBlock for Boolean {
     }
 
     fn output(&self) -> String {
-        // FIXME: syntax: Use actual syntax
         if self.value {
             String::from("TRUE")
         } else {
