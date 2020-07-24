@@ -9,9 +9,10 @@ use std::vec::Vec;
 
 #[derive(Debug)]
 pub struct Function<'block> {
-    // FIXME: Add return value as well as arguments
     label: Label,
+    args: &'block Vec<&'block dyn BasicBlock>,
     stmts: &'block Vec<&'block dyn BasicBlock>,
+    retval: Option<&'block dyn BasicBlock>,
 }
 
 impl<'block> Function<'block> {
@@ -34,11 +35,19 @@ impl<'block> Function<'block> {
     ///
     /// assert_eq!(function_block.interpret(), false);
     /// ```
-    pub fn new(stmts: &'block Vec<&'block dyn BasicBlock>) -> Function<'block> {
+    pub fn new(args: &'block Vec<&'block dyn BasicBlock>, stmts: &'block Vec<&'block dyn BasicBlock>) -> Function<'block> {
         Function {
             label: Label::new("function"),
+            args,
             stmts,
+            retval: None,
         }
+    }
+
+    pub fn with_retval(&mut self, retval: &'block dyn BasicBlock) -> &'block Function {
+        self.retval = Some(retval);
+
+        self
     }
 }
 
