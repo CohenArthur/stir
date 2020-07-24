@@ -3,18 +3,50 @@
 //! return one value at a time.
 
 use super::BasicBlock;
+use super::Function;
 
 use crate::label::Label;
 
 #[derive(Debug)]
 pub struct Call<'block> {
     label: Label,
-    function_label: &'block Label,
-    args: &'block Vec<&'block Label>, // FIXME: Use better representation than Labels
-    return_value: &'block Label,
+    function: &'block Function<'block>,
+    args: &'block Vec<&'block dyn BasicBlock>, // FIXME: Use better representation than Labels
 }
 
 impl<'block> Call<'block> {
+    /// Create a new call block
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use stir::blocks::{Boolean, Call, Function};
+    ///
+    /// let arg0 = Boolean::new(true);
+    /// let args = vec!(&arg0);
+    ///
+    /// // A very useful function
+    /// let body0 = Boolean::new(false);
+    /// let body1 = Boolean::new(false);
+    /// let body2 = Boolean::new(true);
+    /// let vec = vec!(&body0, &body1, &body2);
+    /// let function = Function::new(&vec);
+    ///
+    /// // Create the calling block with the boolean argument
+    /// let call = Call::new(&function, &args);
+    ///
+    /// assert_eq!(call.interpret(), false);
+    /// ```
+    pub fn new(
+        function: &'block Function,
+        args: &'block Vec<&'block dyn BasicBlock>,
+    ) -> Call<'block> {
+        Call {
+            label: Label::new("call"),
+            function,
+            args,
+        }
+    }
 }
 
 impl BasicBlock for Call<'_> {
@@ -23,7 +55,7 @@ impl BasicBlock for Call<'_> {
     }
 
     fn interpret(&self) -> bool {
-        true // FIXME: Add logic
+        self.function.interpret()
     }
 
     fn output(&self) -> String {
