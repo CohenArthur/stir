@@ -121,6 +121,7 @@ mod tests {
         let mut vec: Vec<&dyn BasicBlock> = Vec::new();
         vec.push(&t);
 
+
         let f = Function::new(None, &vec);
 
         assert!(!f.interpret());
