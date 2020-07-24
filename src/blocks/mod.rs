@@ -9,10 +9,10 @@ mod call;
 mod critical;
 mod function;
 mod if_else;
+mod r#loop;
 mod number;
 mod primitive;
 mod static_str;
-mod r#loop;
 
 pub use basic_block::BasicBlock;
 pub use boolean::Boolean;
@@ -22,5 +22,5 @@ pub use function::Function;
 pub use if_else::IfElse;
 pub use number::Number;
 pub use primitive::Primitive;
-pub use static_str::Str;
 pub use r#loop::Loop;
+pub use static_str::Str;

@@ -1,4 +1,5 @@
 use stir::blocks::*;
+use stir::recipe::Recipe;
 
 fn main() {
     let c = Boolean::new(true);
@@ -20,9 +21,9 @@ fn main() {
 
     let func = Function::new(None, &vec);
 
-    dbg!(func);
-    dbg!(l);
-    dbg!(mega_l);
-    dbg!(b);
-    dbg!(ie);
+    let mut recipe = Recipe::new();
+
+    recipe.add(&func);
+
+    println!("{}", recipe.output());
 }

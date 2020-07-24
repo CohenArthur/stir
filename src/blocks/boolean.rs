@@ -13,7 +13,6 @@ pub struct Boolean {
 
     /// Actual value of the Boolean
     value: bool,
-
 }
 
 impl Boolean {

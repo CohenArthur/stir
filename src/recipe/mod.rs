@@ -71,6 +71,15 @@ impl<'block> Recipe<'block> {
     pub fn len(&self) -> usize {
         self.blocks.len()
     }
+
+    /// Output the recipe to valid STIR code
+    pub fn output(&self) -> String {
+        (&self.blocks)
+            .into_iter()
+            .fold(String::new(), |res_str, (_, value)| {
+                format!("{}\n{}", res_str, value.output())
+            })
+    }
 }
 
 #[cfg(test)]
