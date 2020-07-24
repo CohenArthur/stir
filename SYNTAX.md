@@ -39,3 +39,15 @@ CRITICAL {
 ```rust
 CALL __function_label
 ```
+
+## Function declarations
+
+``` rust
+FUNC __function_label {
+    __stmt_label_0
+    __stmt_label_1
+    __stmt_label_2
+    __stmt_label_3
+    RET __stmt_label_4
+}
+```

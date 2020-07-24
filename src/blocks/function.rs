@@ -74,7 +74,11 @@ impl BasicBlock for Function<'_> {
     }
 
     fn output(&self) -> String {
-        String::from("function") // FIXME: Add logic
+        (&self.stmts)
+            .into_iter()
+            .fold(format!("FUNC {} {{\n", self.label()), |out, stmt| {
+                format!("{}\n{}", out, stmt.output())
+            })
     }
 }
 
