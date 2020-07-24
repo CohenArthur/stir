@@ -36,7 +36,7 @@ impl BasicBlock for Critical<'_> {
     }
 
     fn output(&self) -> String {
-        self.block.output()
+        format!("CRITICAL {{\n{}\n}}", self.block.output())
     }
 
     fn is_critical(&self) -> bool {
