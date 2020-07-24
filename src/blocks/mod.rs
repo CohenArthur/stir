@@ -11,7 +11,7 @@ mod function;
 mod if_else;
 mod number;
 mod primitive;
-mod str;
+mod static_str;
 mod r#loop;
 
 pub use basic_block::BasicBlock;
@@ -22,5 +22,5 @@ pub use function::Function;
 pub use if_else::IfElse;
 pub use number::Number;
 pub use primitive::Primitive;
-pub use str::Str;
+pub use static_str::Str;
 pub use r#loop::Loop;

@@ -27,7 +27,7 @@ impl Primitive for Str {
     }
 
     fn get(&self) -> Self::ValueType {
-        self.value
+        self.value.clone()
     }
 }
 
@@ -37,7 +37,7 @@ impl BasicBlock for Str {
     }
 
     fn output(&self) -> String {
-        self.value.clone()
+        self.get()
     }
 
     fn interpret(&self) -> bool {

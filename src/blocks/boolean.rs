@@ -77,25 +77,25 @@ mod tests {
     fn init() {
         let b = Boolean::new(false);
 
-        assert!(!b.value());
+        assert!(!b.get());
     }
 
     #[test]
     fn test_mut() {
         let mut b = Boolean::new(false);
 
-        assert_eq!(b.value(), false);
+        assert_eq!(b.get(), false);
 
         b.set(true);
 
-        assert!(b.value());
+        assert!(b.get());
     }
 
     fn test_value() {
         let b_t = Boolean::new(true);
         let b_f = Boolean::new(false);
 
-        assert!(b_t.value());
-        assert!(!b_f.value());
+        assert!(b_t.get());
+        assert!(!b_f.get());
     }
 }

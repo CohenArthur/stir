@@ -9,7 +9,7 @@ pub trait Primitive: super::BasicBlock {
     /// # Example
     ///
     /// ```
-    /// use stir::blocks::{Primitive, Boolean}
+    /// use stir::blocks::{Primitive, Boolean};
     ///
     /// let b = Boolean::new(true);
     ///
@@ -22,9 +22,9 @@ pub trait Primitive: super::BasicBlock {
     /// # Example
     ///
     /// ```
-    /// use stir::blocks::{Primitive, Boolean}
+    /// use stir::blocks::{Primitive, Boolean};
     ///
-    /// let b = Boolean::new(true);
+    /// let mut b = Boolean::new(true);
     ///
     /// b.set(false);
     ///
