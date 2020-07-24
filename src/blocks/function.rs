@@ -26,16 +26,17 @@ impl<'block> Function<'block> {
     /// let f_block = Boolean::new(false);
     /// let t_block = Boolean::new(true);
     ///
-    /// let mut vec: Vec<&dyn BasicBlock> = Vec::new();
+    /// let mut vec: Vec<&dyn BasicBlock> = vec!(&f_block, &t_block);
     ///
-    /// vec.push(&f_block);
-    /// vec.push(&t_block);
-    ///
-    /// let function_block = Function::new(&vec);
+    /// // Create a function with no arguments and no return value
+    /// let function_block = Function::new(None, &vec);
     ///
     /// assert_eq!(function_block.interpret(), false);
     /// ```
-    pub fn new(args: Option<&'block Vec<&'block dyn BasicBlock>>, stmts: &'block Vec<&'block dyn BasicBlock>) -> Function<'block> {
+    pub fn new(
+        args: Option<&'block Vec<&'block dyn BasicBlock>>,
+        stmts: &'block Vec<&'block dyn BasicBlock>,
+    ) -> Function<'block> {
         Function {
             label: Label::new("function"),
             args,
@@ -51,7 +52,7 @@ impl<'block> Function<'block> {
     pub fn get_arg(&self, idx: usize) -> Option<&'block dyn BasicBlock> {
         match self.args {
             Some(args) => Some(args[idx]),
-            None => None
+            None => None,
         }
     }
 }
@@ -68,7 +69,7 @@ impl BasicBlock for Function<'_> {
 
         match self.retval {
             Some(val) => val.interpret(),
-            None => false
+            None => false,
         }
     }
 
@@ -131,9 +132,9 @@ mod tests {
         let arg1 = Boolean::new(true);
         let arg2 = Boolean::new(true);
 
-        let args: Vec<&dyn BasicBlock> = vec!(&arg0, &arg1, &arg2);
+        let args: Vec<&dyn BasicBlock> = vec![&arg0, &arg1, &arg2];
 
-        let no_body = vec!() as Vec<&dyn BasicBlock>;
+        let no_body = vec![] as Vec<&dyn BasicBlock>;
         let f = Function::new(Some(&args), &no_body);
 
         assert_eq!(f.get_arg(0).unwrap().label(), arg0.label());
@@ -145,7 +146,7 @@ mod tests {
     fn test_retval() {
         let true_retval = Boolean::new(true);
 
-        let no_body = vec!() as Vec<&dyn BasicBlock>;
+        let no_body = vec![] as Vec<&dyn BasicBlock>;
 
         let mut f = Function::new(None, &no_body);
         f.set_retval(&true_retval);

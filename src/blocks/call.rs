@@ -11,7 +11,7 @@ use crate::label::Label;
 pub struct Call<'block> {
     label: Label,
     function: &'block Function<'block>,
-    args: &'block Vec<&'block dyn BasicBlock>, // FIXME: Use better representation than Labels
+    args: Option<&'block Vec<&'block dyn BasicBlock>>,
 }
 
 impl<'block> Call<'block> {
@@ -30,16 +30,16 @@ impl<'block> Call<'block> {
     /// let body1 = Boolean::new(false);
     /// let body2 = Boolean::new(true);
     /// let vec: Vec<&dyn BasicBlock> = vec!(&body0, &body1, &body2);
-    /// let function = Function::new(&vec);
+    /// let function = Function::new(None, &vec);
     ///
     /// // Create the calling block with the boolean argument
-    /// let call = Call::new(&function, &args);
+    /// let call = Call::new(&function, Some(&args));
     ///
     /// assert_eq!(call.interpret(), false);
     /// ```
     pub fn new(
         function: &'block Function,
-        args: &'block Vec<&'block dyn BasicBlock>,
+        args: Option<&'block Vec<&'block dyn BasicBlock>>,
     ) -> Call<'block> {
         Call {
             label: Label::new("call"),
