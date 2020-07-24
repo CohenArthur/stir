@@ -18,7 +18,7 @@ fn main() {
     vec.push(&b);
     vec.push(&ie);
 
-    let func = Function::new(&vec);
+    let func = Function::new(None, &vec);
 
     dbg!(func);
     dbg!(l);
