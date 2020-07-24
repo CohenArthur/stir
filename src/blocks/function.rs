@@ -9,9 +9,10 @@ use std::vec::Vec;
 
 #[derive(Debug)]
 pub struct Function<'block> {
-    // FIXME: Add return value as well as arguments
     label: Label,
+    args: Option<&'block Vec<&'block dyn BasicBlock>>,
     stmts: &'block Vec<&'block dyn BasicBlock>,
+    retval: Option<&'block dyn BasicBlock>,
 }
 
 impl<'block> Function<'block> {
@@ -25,19 +26,33 @@ impl<'block> Function<'block> {
     /// let f_block = Boolean::new(false);
     /// let t_block = Boolean::new(true);
     ///
-    /// let mut vec: Vec<&dyn BasicBlock> = Vec::new();
+    /// let mut vec: Vec<&dyn BasicBlock> = vec!(&f_block, &t_block);
     ///
-    /// vec.push(&f_block);
-    /// vec.push(&t_block);
-    ///
-    /// let function_block = Function::new(&vec);
+    /// // Create a function with no arguments and no return value
+    /// let function_block = Function::new(None, &vec);
     ///
     /// assert_eq!(function_block.interpret(), false);
     /// ```
-    pub fn new(stmts: &'block Vec<&'block dyn BasicBlock>) -> Function<'block> {
+    pub fn new(
+        args: Option<&'block Vec<&'block dyn BasicBlock>>,
+        stmts: &'block Vec<&'block dyn BasicBlock>,
+    ) -> Function<'block> {
         Function {
             label: Label::new("function"),
+            args,
             stmts,
+            retval: None,
+        }
+    }
+
+    pub fn set_retval(&mut self, retval: &'block dyn BasicBlock) {
+        self.retval = Some(retval);
+    }
+
+    pub fn get_arg(&self, idx: usize) -> Option<&'block dyn BasicBlock> {
+        match self.args {
+            Some(args) => Some(args[idx]),
+            None => None,
         }
     }
 }
@@ -48,14 +63,14 @@ impl BasicBlock for Function<'_> {
     }
 
     fn interpret(&self) -> bool {
-        let mut res = true;
-
         for statement in self.stmts.iter() {
-            // FIXME: Add actual logic ? Or is this what we want ?
-            res = if statement.interpret() { res } else { false };
+            statement.interpret();
         }
 
-        res
+        match self.retval {
+            Some(val) => val.interpret(),
+            None => false,
+        }
     }
 
     fn output(&self) -> String {
@@ -75,7 +90,7 @@ mod tests {
         let mut vec: Vec<&dyn BasicBlock> = Vec::new();
         vec.push(&b);
 
-        let f = Function::new(&vec);
+        let f = Function::new(None, &vec);
 
         assert_eq!(f.interpret(), false);
     }
@@ -94,7 +109,7 @@ mod tests {
         vec.push(&ie);
         vec.push(&other_stmt);
 
-        let f = Function::new(&vec);
+        let f = Function::new(None, &vec);
 
         assert_eq!(f.interpret(), false);
     }
@@ -106,7 +121,36 @@ mod tests {
         let mut vec: Vec<&dyn BasicBlock> = Vec::new();
         vec.push(&t);
 
-        let f = Function::new(&vec);
+
+        let f = Function::new(None, &vec);
+
+        assert!(!f.interpret());
+    }
+
+    #[test]
+    fn test_args() {
+        let arg0 = Boolean::new(false);
+        let arg1 = Boolean::new(true);
+        let arg2 = Boolean::new(true);
+
+        let args: Vec<&dyn BasicBlock> = vec![&arg0, &arg1, &arg2];
+
+        let no_body = vec![] as Vec<&dyn BasicBlock>;
+        let f = Function::new(Some(&args), &no_body);
+
+        assert_eq!(f.get_arg(0).unwrap().label(), arg0.label());
+        assert_eq!(f.get_arg(1).unwrap().label(), arg1.label());
+        assert_eq!(f.get_arg(2).unwrap().label(), arg2.label());
+    }
+
+    #[test]
+    fn test_retval() {
+        let true_retval = Boolean::new(true);
+
+        let no_body = vec![] as Vec<&dyn BasicBlock>;
+
+        let mut f = Function::new(None, &no_body);
+        f.set_retval(&true_retval);
 
         assert!(f.interpret());
     }
