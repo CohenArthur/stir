@@ -42,22 +42,14 @@ impl BasicBlock for IfElse<'_> {
     }
 
     fn output(&self) -> String {
-        let mut s = String::from("IF ");
-        s.push_str(&self.cond_block.output());
-        s.push_str(" {\n");
-        s.push_str(&self.t_block.output());
-        s.push_str("\n}");
+        let s = format!("IF {} {{\n{}\n}}", self.cond_block.output(), self.t_block.output());
 
         match self.f_block {
             Some(else_block) => {
-                s.push_str(" ELSE {\n");
-                s.push_str(&else_block.output());
-                s.push_str("\n}\n");
-                s
+                format!(" ELSE {{\n{}\n}}", else_block.output())
             }
             None => {
-                s.push('\n');
-                s
+                format!("{}\n", s)
             }
         }
     }
