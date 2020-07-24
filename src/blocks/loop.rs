@@ -38,7 +38,21 @@ impl BasicBlock for Loop<'_> {
     }
 
     fn output(&self) -> String {
-        String::from("loop") // FIXME: Logic: Pretty print
+        match (self.lo_bound, self.hi_bound, self.body) {
+            (Some(lo), Some(hi), Some(body)) => format!(
+                "LOOP {} {} {{\n{}\n}}",
+                lo.output(),
+                hi.output(),
+                body.output()
+            ),
+            (None, Some(_), Some(body))
+            | (Some(_), None, Some(body))
+            | (None, None, Some(body)) => format!("LOOP {{\n{}\n}}", body.output()),
+            (Some(lo), Some(hi), None) => format!("LOOP {} {} {{}}", lo.output(), hi.output()),
+            (None, None, None) | (None, Some(_), None) | (Some(_), None, None) => {
+                format!("LOOP {{}}")
+            }
+        }
     }
 }
 
