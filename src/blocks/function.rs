@@ -44,10 +44,8 @@ impl<'block> Function<'block> {
         }
     }
 
-    pub fn with_retval(&mut self, retval: &'block dyn BasicBlock) -> &'block Function {
+    pub fn set_retval(&mut self, retval: &'block dyn BasicBlock) {
         self.retval = Some(retval);
-
-        self
     }
 
     pub fn get_arg(&self, idx: usize) -> Option<&'block dyn BasicBlock> {
@@ -124,7 +122,7 @@ mod tests {
 
         let f = Function::new(None, &vec);
 
-        assert!(f.interpret());
+        assert!(!f.interpret());
     }
 
     #[test]
@@ -141,5 +139,17 @@ mod tests {
         assert_eq!(f.get_arg(0).unwrap().label(), arg0.label());
         assert_eq!(f.get_arg(1).unwrap().label(), arg1.label());
         assert_eq!(f.get_arg(2).unwrap().label(), arg2.label());
+    }
+
+    #[test]
+    fn test_retval() {
+        let true_retval = Boolean::new(true);
+
+        let no_body = vec!() as Vec<&dyn BasicBlock>;
+
+        let mut f = Function::new(None, &no_body);
+        f.set_retval(&true_retval);
+
+        assert!(f.interpret());
     }
 }
